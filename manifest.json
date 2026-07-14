@@ -4,6 +4,10 @@
   "version": "0.1.0",
   "description": "为 BYR Docs 维基真题试卷页提供打印选项（概要信息、答案等）。",
   "homepage_url": "https://github.com/renhao12356578/byrdocs-wiki-print",
+  "permissions": ["storage"],
+  "options_ui": {
+    "page": "options.html"
+  },
   "content_scripts": [
     {
       "matches": [

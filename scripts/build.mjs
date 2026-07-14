@@ -14,10 +14,13 @@ const staticFiles = [
   "manifest.json",
   join("src", "ui.css"),
   join("src", "print.css"),
+  join("options", "options.html"),
+  join("options", "options.js"),
 ];
 
 for (const file of staticFiles) {
-  copyFileSync(join(root, file), join(dist, file.split("/").pop()));
+  const fileName = file.includes("/") ? file.split("/").pop() : file;
+  copyFileSync(join(root, file), join(dist, fileName));
 }
 
 const ctx = await esbuild.context({

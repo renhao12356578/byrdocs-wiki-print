@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYR Docs Wiki Print 设置</title>
+  <style>
+    body {
+      color: #0f172a;
+      font-family: system-ui, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      max-width: 36rem;
+      padding: 1.5rem;
+    }
+    h1 {
+      font-size: 1.15rem;
+      margin: 0 0 1rem;
+    }
+    label {
+      align-items: flex-start;
+      cursor: pointer;
+      display: flex;
+      gap: 0.65rem;
+    }
+    input {
+      margin-top: 0.25rem;
+    }
+    p {
+      color: #64748b;
+      font-size: 0.9rem;
+      margin: 0.75rem 0 0 1.45rem;
+    }
+    .status {
+      color: #0f766e;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      min-height: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <h1>BYR Docs Wiki Print</h1>
+  <label>
+    <input id="takeoverPrint" type="checkbox" />
+    <span>仅扩展接管打印</span>
+  </label>
+  <p>
+    开启后，拦截 <code>Ctrl/Cmd + P</code>，并接管主站「打印试卷」按钮，统一打开扩展的打印选项。
+    关闭后主站打印功能恢复原样。
+  </p>
+  <div id="status" class="status" aria-live="polite"></div>
+  <script src="options.js"></script>
+</body>
+</html>
