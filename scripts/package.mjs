@@ -25,4 +25,8 @@ for (const file of readdirSync(releaseDir)) {
 execSync("npm run build", { cwd: root, stdio: "inherit" });
 execSync(`zip -r ${JSON.stringify(zipPath)} .`, { cwd: dist, stdio: "inherit" });
 
+const stableZipPath = join(releaseDir, "byrdocs-wiki-print.zip");
+execSync(`cp ${JSON.stringify(zipPath)} ${JSON.stringify(stableZipPath)}`);
+
 console.log(`Packaged ${zipPath}`);
+console.log(`Stable download name: ${stableZipPath}`);

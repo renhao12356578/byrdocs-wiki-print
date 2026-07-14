@@ -1,5 +1,8 @@
 # BYR Docs Wiki Print
 
+[![Release](https://img.shields.io/github/v/release/renhao12356578/byrdocs-wiki-print?label=Release)](https://github.com/renhao12356578/byrdocs-wiki-print/releases/latest)
+[![Build](https://github.com/renhao12356578/byrdocs-wiki-print/actions/workflows/build.yml/badge.svg)](https://github.com/renhao12356578/byrdocs-wiki-print/actions/workflows/build.yml)
+
 为 [BYR Docs 维基真题](https://wiki.byrdocs.org) 试卷页提供打印选项的浏览器扩展，**无需修改或部署主站**即可使用。
 
 ## 功能概览
@@ -40,8 +43,10 @@
 
 ### 从 Release 安装（推荐）
 
-1. 打开仓库 [Releases](https://github.com/renhao12356578/byrdocs-wiki-print/releases) 或 `release/` 目录中的 zip
+1. **[下载最新版 zip](https://github.com/renhao12356578/byrdocs-wiki-print/releases/latest/download/byrdocs-wiki-print.zip)**（一键下载，文件名固定）
 2. 解压后在 Chrome → `chrome://extensions/` → 开发者模式 → **加载已解压的扩展程序** → 选择解压目录
+
+也可前往 [Releases 页面](https://github.com/renhao12356578/byrdocs-wiki-print/releases) 查看版本说明与带版本号的安装包。
 
 ### 本地构建
 
@@ -98,15 +103,19 @@ options/            # 扩展选项页
 dist/               # 构建产物（加载此目录）
 ```
 
-## CI 打包
+## CI 与 Release
 
 推送到 `main` / `master` 时，GitHub Actions 会：
 
-1. 运行 `npm run package`
-2. 将 zip 提交到 `release/` 目录
-3. 在 Actions 页提供 artifact 下载
+1. 运行 `npm run package` 构建 zip
+2. 创建/更新 GitHub Release（标签 `v<version>`，与 `package.json` 版本一致）
+3. 上传两个安装包：
+   - `byrdocs-wiki-print.zip` — 固定文件名，适合 [latest 一键下载](https://github.com/renhao12356578/byrdocs-wiki-print/releases/latest/download/byrdocs-wiki-print.zip)
+   - `byrdocs-wiki-print-v<version>.zip` — 带版本号，便于归档
 
-PR 也会打包，但不会自动提交 zip。
+PR 也会打包并上传 artifact，但不会创建 Release。
+
+发布新版本时，请先 bump `package.json` 中的 `version`，再 push 到 `main`。
 
 ## 与主站的关系
 

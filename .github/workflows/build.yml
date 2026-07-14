@@ -29,6 +29,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Read version
+        id: version
+        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+
       - name: Build and package
         run: npm run package
 
@@ -36,15 +40,22 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: byrdocs-wiki-print
-          path: release/byrdocs-wiki-print-v*.zip
+          path: |
+            release/byrdocs-wiki-print-v*.zip
+            release/byrdocs-wiki-print.zip
           if-no-files-found: error
 
-      - name: Commit release zip to repository
+      - name: Create GitHub Release
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add release/
-          git diff --staged --quiet && echo "No zip changes to commit." && exit 0
-          git commit -m "chore: pack extension v$(node -p "require('./package.json').version") [skip ci]"
-          git push
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: v${{ steps.version.outputs.version }}
+          files: |
+            release/byrdocs-wiki-print-v${{ steps.version.outputs.version }}.zip
+            release/byrdocs-wiki-print.zip
+          generate_release_notes: true
+          make_latest: true
+          overwrite_assets: true
+          draft: false
+          prerelease: false
